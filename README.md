@@ -72,17 +72,15 @@ The LCD displays the current temperature and relative humidity.
 
 ### High-Temperature Alert
 
-The LCD displays an alert when the configured high-temperature threshold is exceeded.
+The LCD displays an alert when the temperature exceeds 80°F.
 
 ![Too hot alert](images/too-hot.jpg)
 
 ### Low-Temperature Alert
 
-The LCD displays an alert when the temperature falls below the configured low-temperature threshold.
+The LCD displays an alert when the temperature falls below 60°F.
 
 ![Too cold alert](images/too-cold.jpg)
-
-*Note: If a temperature threshold was temporarily changed to demonstrate an alert, the demonstration should be understood as a test of the alert logic rather than proof that the original threshold was reached.*
 
 ## Development Notes
 
