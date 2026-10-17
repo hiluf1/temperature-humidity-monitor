@@ -1,62 +1,105 @@
 # Arduino Temperature and Humidity Monitor
 
-An Arduino Uno project that reads room temperature and humidity from a DHT11 sensor and shows them on a 16x2 LCD, with "Too hot" and "Too cold" alerts.
+An Arduino Uno project that measures room temperature and humidity using a DHT11 sensor and displays the readings on a 16x2 LCD. The system also displays alerts when the temperature exceeds configured thresholds.
 
-![Running monitor](images/running.jpg)
+![Running temperature and humidity monitor](images/running.jpg)
 
 ## Features
-- Shows temperature (°F) and humidity (%) on the LCD
-- Shows "Too hot" above 80°F and "Too cold" below 60°F
-- Shows "error" if the sensor read fails
+
+- Displays temperature in Fahrenheit (°F)
+- Displays relative humidity as a percentage
+- Displays **"Too hot"** when the temperature exceeds 80°F
+- Displays **"Too cold"** when the temperature falls below 60°F
+- Displays an error message if a sensor reading fails
 
 ## Hardware
+
 - Arduino Uno
 - DHT11 temperature and humidity sensor module
-- 16x2 LCD (LCD1602) in 4-bit mode
-- Potentiometer (LCD contrast)
+- 16x2 LCD1602 display
+- Potentiometer for LCD contrast adjustment
 - Breadboard and jumper wires
 
 ## Wiring
 
-| Part | Pin | Connects to |
+| Component | Pin | Arduino Connection |
 |---|---|---|
-| LCD | RS | Arduino 9 |
-| LCD | E | Arduino 8 |
-| LCD | D4, D5, D6, D7 | Arduino 4, 5, 6, 7 |
-| LCD | RW, VSS | GND |
+| LCD | RS | Digital pin 9 |
+| LCD | E | Digital pin 8 |
+| LCD | D4 | Digital pin 4 |
+| LCD | D5 | Digital pin 5 |
+| LCD | D6 | Digital pin 6 |
+| LCD | D7 | Digital pin 7 |
+| LCD | RW | GND |
+| LCD | VSS | GND |
 | LCD | VDD | 5V |
 | LCD | VO | Potentiometer middle pin |
-| LCD | A, K (backlight) | 5V, GND |
-| DHT11 | Data | Arduino A0 |
-| DHT11 | VCC, GND | 5V, GND |
-| Potentiometer | Outer pins | 5V, GND |
+| LCD | A (backlight) | 5V |
+| LCD | K (backlight) | GND |
+| DHT11 | Data | A0 |
+| DHT11 | VCC | 5V |
+| DHT11 | GND | GND |
+| Potentiometer | Outer pins | 5V and GND |
 
-## Schematic
-Drawn in KiCad. The ERC (electrical rules check) passes with no errors or warnings.
+## Circuit Schematic
 
-![KiCad schematic](images/schematic.png)
+The circuit schematic was created in KiCad to document the hardware connections.
 
-Files are in the [`kicad`](kicad) folder, including a PDF of the schematic.
+![KiCad circuit schematic](images/schematic.png)
+
+The `kicad` folder contains the editable KiCad project files and a PDF version of the schematic.
 
 ## Software
-- Arduino IDE
-- Library to install: **DHT sensor library** by Adafruit (it asks to install Adafruit Unified Sensor too)
-- LiquidCrystal comes with the Arduino IDE
 
-Sketch: [`temperature_humidity_monitor/temperature_humidity_monitor.ino`](temperature_humidity_monitor/temperature_humidity_monitor.ino)
+- **Arduino IDE** — for writing and uploading the program
+- **DHT sensor library by Adafruit** — for reading temperature and humidity
+- **Adafruit Unified Sensor** — dependency required by the DHT library
+- **LiquidCrystal** — library included with the Arduino IDE for controlling the LCD
 
-## Demo photos
-[PICK ONE AND DELETE THE OTHER:
- A) The alert photos were taken by warming or cooling the sensor.
- B) For the "Too cold" photo, I temporarily changed the limit in the code to 75°F so the alert would show at room temperature; the "Too hot" photo was taken by warming the sensor.]
+### Arduino Sketch
 
-![Too hot](images/too-hot.jpg)
-![Too cold](images/too-cold.jpg)
+The source code is available here:
 
-## Notes
-- First built Sept 25 to 29, 2026; rebuilt Oct 16 for this repository.
-- A pin conflict (the LCD and the sensor both on digital pin 2) was fixed by moving the sensor to A0.
+[`temperature_humidity_monitor/temperature_humidity_monitor.ino`](temperature_humidity_monitor/temperature_humidity_monitor.ino)
 
-## Status and future work
-- KiCad schematic drawn; PCB not designed yet.
-- Planned: adjustable thresholds, data logging to a file, and a PCB so several units can go in different rooms.
+## Demonstration
+
+### Normal Operation
+
+The LCD displays the current temperature and relative humidity.
+
+![Normal operation](images/running.jpg)
+
+### High-Temperature Alert
+
+The LCD displays an alert when the configured high-temperature threshold is exceeded.
+
+![Too hot alert](images/too-hot.jpg)
+
+### Low-Temperature Alert
+
+The LCD displays an alert when the temperature falls below the configured low-temperature threshold.
+
+![Too cold alert](images/too-cold.jpg)
+
+*Note: If a temperature threshold was temporarily changed to demonstrate an alert, the demonstration should be understood as a test of the alert logic rather than proof that the original threshold was reached.*
+
+## Development Notes
+
+- Built the initial circuit in September 2026 and revisited the project in October 2026.
+- Resolved an initial pin conflict by moving the DHT11 data connection to A0.
+- Created a KiCad schematic to document the circuit design.
+
+## Current Status
+
+- Arduino circuit assembled and operational.
+- LCD temperature, humidity, and alert displays implemented.
+- KiCad schematic created and project files documented.
+- Custom PCB not yet designed.
+
+## Future Improvements
+
+- Add adjustable temperature thresholds.
+- Implement temperature and humidity data logging.
+- Design a custom PCB.
+- Build multiple monitoring units for different rooms.
