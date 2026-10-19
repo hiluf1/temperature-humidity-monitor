@@ -2,7 +2,7 @@
 
 An Arduino Uno project that measures room temperature and humidity using a DHT11 sensor and displays the readings on a 16x2 LCD. The system also displays alerts when the temperature exceeds configured thresholds.
 
-![Running temperature and humidity monitor](images/running.jpg)
+![Running temperature and humidity monitor](images/running.jpeg)
 
 ## Features
 
@@ -68,19 +68,19 @@ The source code is available here:
 
 The LCD displays the current temperature and relative humidity.
 
-![Normal operation](images/running.jpg)
+![Normal operation](images/running.jpeg)
 
 ### High-Temperature Alert
 
-The LCD displays an alert when the temperature exceeds 80°F.
+The LCD displays an alert when the temperature exceeds 80°F. This photo was taken by actually heating the sensor.
 
-![Too hot alert](images/too-hot.jpg)
+![Too hot alert](images/too-hot.jpeg)
 
 ### Low-Temperature Alert
 
-The LCD displays an alert when the temperature falls below 60°F.
+The LCD displays an alert when the temperature falls below 60°F. This photo was taken by actually cooling the sensor.
 
-![Too cold alert](images/too-cold.jpg)
+![Too cold alert](images/too-cold.jpeg)
 
 ## Development Notes
 
