@@ -21,11 +21,15 @@ void loop() {
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("error");
-  } else if(temp>80){
+  }else if (!isnan(temp) &&!isnan(humid)){
+   Serial.print(temp);
+   Serial.print(",");
+   Serial.println(humid);
+     if(temp>80){
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Too hot");
-  }else if (temp<60){
+  } else if (temp<60){
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Too cold");
@@ -39,4 +43,8 @@ void loop() {
     lcd.print ("Humidity: ");
     lcd.print(humid);
   }
+  }
+  
+  
+
 }
