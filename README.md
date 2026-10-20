@@ -1,6 +1,6 @@
 # Arduino Temperature and Humidity Monitor
 
-An Arduino Uno project that measures room temperature and humidity using a DHT11 sensor and displays the readings on a 16x2 LCD. The system also displays alerts when the temperature exceeds configured thresholds. Each valid reading is also sent over USB serial, and a Python script can save the readings to a CSV file.
+An Arduino Uno project that measures room temperature and humidity using a DHT11 sensor and displays the readings on a 16x2 LCD. The system also displays alerts when the temperature exceeds configured thresholds. Each valid reading is also sent over USB serial, and a Python script can save the readings to a timestamped CSV file.
 
 ![Running temperature and humidity monitor](images/running.jpeg)
 
@@ -12,7 +12,7 @@ An Arduino Uno project that measures room temperature and humidity using a DHT11
 - Displays **"Too cold"** when the temperature falls below 60°F
 - Displays an error message if a sensor reading fails
 - Sends each valid reading over serial as `temperature,humidity`
-- Includes a Python logger that saves the serial readings to a CSV file
+- Includes a Python logger that saves the serial readings to a CSV file with timestamps
 
 ## Hardware
 
@@ -70,7 +70,7 @@ The sketch prints each valid reading to serial at 9600 baud, one line per readin
 
 ## Data Logging
 
-The Python script [`logger.py`](logger.py) reads the serial output from the Arduino and appends each reading to `log.csv`.
+The Python script [`logger.py`](logger.py) reads the serial output from the Arduino and appends each reading to `log.csv`, with a timestamp.
 
 To run it:
 
@@ -91,7 +91,13 @@ To run it:
 
 6. Press **Ctrl+C** to stop it.
 
-Each row in `log.csv` is one reading: temperature in °F, then relative humidity in %. The logger does not add timestamps yet. If `log.csv` is open in Excel, close it before starting the logger, because Excel locks the file.
+Each row in `log.csv` is one reading with three columns: the timestamp (`YYYY-MM-DDTHH:MM:SS`, from the computer's clock), the temperature in °F, and the relative humidity in %. For example:
+
+```
+2026-10-20T13:46:33,66.74,60.00
+```
+
+The file has no header row, and new readings are appended to the end each time the logger runs. If `log.csv` is open in Excel, close it before starting the logger, because Excel locks the file.
 
 ## Demonstration
 
@@ -119,19 +125,19 @@ The LCD displays an alert when the temperature falls below 60°F. This photo was
 - Resolved an initial pin conflict by moving the DHT11 data connection to A0.
 - Created a KiCad schematic to document the circuit design.
 - Added serial output to the sketch and wrote a Python logger with pyserial in October 2026. Tested on Windows.
+- Added timestamps to the logged readings.
 
 ## Current Status
 
 - Arduino circuit assembled and operational.
 - LCD temperature, humidity, and alert displays implemented.
 - KiCad schematic created and project files documented.
-- Serial output and Python CSV logger working.
+- Serial output and timestamped Python CSV logger working.
 - Custom PCB not yet designed.
 
 ## Future Improvements
 
 - Add adjustable temperature thresholds.
-- Add timestamps to the logged readings.
 - Plot the logged data.
 - Design a custom PCB.
 - Build multiple monitoring units for different rooms.
