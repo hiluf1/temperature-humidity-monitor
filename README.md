@@ -13,6 +13,7 @@ An Arduino Uno project that measures room temperature and humidity using a DHT11
 - Displays an error message if a sensor reading fails
 - Sends each valid reading over serial as `temperature,humidity`
 - Includes a Python logger that saves the serial readings to a CSV file with timestamps
+- The logger skips serial lines it cannot decode instead of stopping
 
 ## Hardware
 
@@ -70,7 +71,7 @@ The sketch prints each valid reading to serial at 9600 baud, one line per readin
 
 ## Data Logging
 
-The Python script [`logger.py`](logger.py) reads the serial output from the Arduino and appends each reading to `log.csv`, with a timestamp.
+The Python script [`logger.py`](logger.py) reads the serial output from the Arduino and appends each reading to `log.csv`, with a timestamp. If a serial line cannot be decoded, the logger skips it and keeps running.
 
 To run it:
 
@@ -82,14 +83,20 @@ To run it:
    python -m pip install pyserial
 ```
 
-4. In `logger.py`, set the port name to match your Arduino (it is `COM3` on my Windows PC; check **Tools → Port** in the Arduino IDE).
-5. Run the logger:
+4. Find your Arduino's port name. In the Arduino IDE, check **Tools → Port**, or run:
+
+```
+   python -m serial.tools.list_ports
+```
+
+5. In `logger.py`, set the port name to match your Arduino (it is `COM3` on my Windows PC). The port number can change if you unplug the board or use a different USB port.
+6. Run the logger:
 
 ```
    python logger.py
 ```
 
-6. Press **Ctrl+C** to stop it.
+7. Press **Ctrl+C** to stop it.
 
 Each row in `log.csv` is one reading with three columns: the timestamp (`YYYY-MM-DDTHH:MM:SS`, from the computer's clock), the temperature in °F, and the relative humidity in %. For example:
 
@@ -126,6 +133,7 @@ The LCD displays an alert when the temperature falls below 60°F. This photo was
 - Created a KiCad schematic to document the circuit design.
 - Added serial output to the sketch and wrote a Python logger with pyserial in October 2026. Tested on Windows.
 - Added timestamps to the logged readings.
+- Made the logger skip undecodable serial lines so a single bad line does not stop it.
 
 ## Current Status
 
